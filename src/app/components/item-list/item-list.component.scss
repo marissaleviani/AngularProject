@@ -1,0 +1,93 @@
+.nav{
+    background-color: white;
+    width: 100%;
+    top: 0;
+    position: sticky;
+    z-index: 1000;
+    margin: 0;
+    padding: 1rem 0px;
+    box-shadow: 0px 4px 10px 0px #4F617B1A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-logo{
+    padding: 10px;
+    width: 20px;
+    text-align: center;
+    margin-right: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.grid-item{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-content: stretch;
+    margin: 20px;
+}
+
+.card{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px 0px #4F617B14;
+    margin: 5px;
+    padding: 15px;
+    border: 1px solid transparent;
+}
+
+.span-1{
+    grid-column: span 2;
+    row-gap: 1px;
+}
+
+.span-2{
+    grid-column: span 1;
+    margin: 10px 0;
+}
+
+.wrap-content-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-comment{
+    font-size: 12px;
+    background-color: var(--background-btn-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 7px;
+    height: 30px;
+    margin: 5px 10px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.btn-trending{
+    background-color: var(--red);
+    color: white;
+    padding: 3px 5px;
+    border-radius: 2px;
+    margin-left: 5px;
+}
+
+//hover
+.span-1 .card{
+    margin: 0.5px 5px;
+
+    &:hover{
+        background-color: var(--background-hover-color);
+    }
+}
+
+.span-2 .card{
+    height: 70%;
+
+    &:hover{
+        border: 1px solid var(--primary-color);
+    }
+}

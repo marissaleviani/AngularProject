@@ -1,0 +1,90 @@
+<div>
+  <!-- navigation bar -->
+  <div class="nav">
+    <p class="main-logo">Y</p>
+    <h3>HackerNews</h3>
+  </div>
+
+  <!-- skeleton loading when fetch topic lists -->
+  <div *ngIf="isLoading" class="container grid-item">
+    <div *ngFor="let item of loadingLoop; let i = index" class="span-2">
+      <div class="card" [id]="'skeleton-card-' + i">
+        <div>
+          <h4 class="skeleton-title"></h4>
+          <p class="skeleton-info"></p>
+        </div>
+        <hr />
+        <div class="wrap-content">
+          <p class="skeleton-info"></p>
+          <p class="skeleton-btn"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- display all topic lists  -->
+  <div *ngIf="!isLoading && !errorMsg" class="container">
+    <div class="grid-item">
+      <div
+        *ngFor="let story of detailTopic; let i = index"
+        [ngClass]="'span-' + getGroupSpan(i)"
+      >
+        <div class="card" [id]="'list-card-' + i">
+          <div class="wrap-content">
+            <div>
+              <h4 class="title" [id]="'title-' + i">{{ story.title }}</h4>
+              <p class="info" [id]="'information-' + i">
+                {{ story.score }} points by {{ story.by }} | codeberg.co
+                <span *ngIf="span == 1">
+                  | <i class="far fa-clock"></i>
+                  {{ setTime(story.time) }}
+                </span>
+                <span
+                  *ngIf="story.descendants > 100 && span == 1"
+                  class="btn-trending"
+                >
+                  Trending
+                </span>
+              </p>
+            </div>
+            <div *ngIf="span == 1" class="wrap-content-btn">
+              <button
+                class="btn-comment"
+                [id]="'btn-comment-' + i"
+                (click)="onClickDialog(story)"
+              >
+                <i class="far fa-comment-dots"></i>
+                {{ story.descendants }} Comment &nbsp;
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+          <div *ngIf="span == 2">
+            <hr />
+            <div class="wrap-content">
+              <p class="info" [id]="'information-' + i">
+                <i class="far fa-clock"></i>
+                {{ setTime(story.time) }}
+                <span *ngIf="story.descendants > 100" class="btn-trending"
+                  >Trending</span
+                >
+              </p>
+              <button
+                class="btn-comment"
+                [id]="'btn-comment-' + i"
+                (click)="onClickDialog(story)"
+              >
+                <i class="far fa-comment-dots"></i>
+                {{ story.descendants }} Comment &nbsp;
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- detail comment modal  -->
+  <app-item-detail [selectedTopic]="selectedTopic"></app-item-detail>
+</div>

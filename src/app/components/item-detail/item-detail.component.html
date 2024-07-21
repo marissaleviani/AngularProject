@@ -1,0 +1,76 @@
+<!-- dialog.component.html -->
+<div *ngIf="isDialogOpen" class="dialog-overlay">
+  <div class="dialog-content" [@dialogAnimation]>
+    <!-- close button bar  -->
+    <div class="close-bar">
+      <button
+        (click)="onCloseDialog()"
+        class="btn-close"
+        [disabled]="isLoading"
+        id="btn-close"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- topic short information  -->
+    <div>
+      <div>
+        <h4>{{ selectedTopic.title }}</h4>
+      </div>
+      <div class="wrap-content">
+        <p class="info">
+          {{ selectedTopic.score }} points by {{ selectedTopic.by }} |
+          codeberg.org | &nbsp; <i class="far fa-clock"></i>
+          {{ selectedTopic.time }}
+        </p>
+        <p class="comment-txt">
+          <i class="far fa-comment-dots"></i> &nbsp;
+          {{ detailComment.length }} Comment
+        </p>
+      </div>
+    </div>
+    <hr />
+
+    <!-- skeleton loading when fetch comment section  -->
+    <div *ngIf="isLoading" class="comment-section">
+      <div *ngFor="let comment of loadingLoop; let i = index">
+        <div class="wrap-comment" [id]="'skeleton-comment-' + i">
+          <div class="card">
+            <h5 class="skeleton-title"></h5>
+            <p class="skeleton-info"></p>
+          </div>
+          <p class="info-time skeleton-info"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- display comment lists  -->
+    <div *ngIf="!isLoading && detailComment.length > 0" class="comment-section">
+      <div *ngFor="let comment of detailComment; let i = index">
+        <div class="wrap-comment" [id]="'list-comment-' + i">
+          <div class="card">
+            <h5 [id]="'writter-' + i">{{ comment.by }}</h5>
+            <p
+              [id]="'comment-' + i"
+              class="comment-desc"
+              [innerHTML]="comment.text"
+            ></p>
+          </div>
+          <p class="info-time" [id]="'comment-time-' + i">
+            {{ setTime(comment.time) }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- display if there's no data  -->
+    <div
+      *ngIf="!isLoading && selectedTopic.kids == undefined"
+      class="comment-section"
+      id="no-comment-txt"
+    >
+      <p class="no-comment">No comment available.</p>
+    </div>
+  </div>
+</div>
